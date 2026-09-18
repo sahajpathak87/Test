@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Garden Notebook — HTML Tag Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F6F4EC;
+    --paper-line: #DCD6C2;
+    --ink: #2B2A25;
+    --ink-soft: #6B6656;
+    --moss: #4C6B4F;
+    --moss-deep: #33482F;
+    --rust: #A85C32;
+    --code-bg: #EEEAD9;
+    --card-bg: #FFFEFA;
+    --link: #33482F;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper: #201F1B;
+      --paper-line: #3A382E;
+      --ink: #EDE9DC;
+      --ink-soft: #B4AE9C;
+      --moss: #8FB596;
+      --moss-deep: #A9CBAE;
+      --rust: #D98A5C;
+      --code-bg: #2A2924;
+      --card-bg: #262520;
+      --link: #A9CBAE;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper: #201F1B;
+    --paper-line: #3A382E;
+    --ink: #EDE9DC;
+    --ink-soft: #B4AE9C;
+    --moss: #8FB596;
+    --moss-deep: #A9CBAE;
+    --rust: #D98A5C;
+    --code-bg: #2A2924;
+    --card-bg: #262520;
+    --link: #A9CBAE;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Sans 3", system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    background-image: repeating-linear-gradient(
+      var(--paper) 0px, var(--paper) 41px, var(--paper-line) 42px
+    );
+    background-attachment: local;
+  }
+
+  .wrap{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 24px 100px;
+  }
+
+  header.hero{
+    margin-bottom: 44px;
+  }
+  .kicker{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.8rem;
+    color: var(--moss);
+    letter-spacing: 0.02em;
+  }
+  h1.title{
+    font-family: "Fraunces", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-size: clamp(2.1rem, 5vw, 3rem);
+    line-height: 1.08;
+    margin: 6px 0 10px;
+    color: var(--ink);
+  }
+  .sub{
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    max-width: 46ch;
+  }
+
+  .tag-badge{
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.78rem;
+    color: var(--card-bg);
+    background: var(--moss-deep);
+    padding: 2px 9px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+  }
+
+  section.entry{
+    background: var(--card-bg);
+    border: 1px solid var(--paper-line);
+    border-radius: 4px;
+    padding: 26px 28px;
+    margin-bottom: 26px;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  }
+
+  section.entry h2.label{
+    font-family: "Fraunces", serif;
+    font-weight: 500;
+    font-size: 1.3rem;
+    margin: 0 0 4px;
+    color: var(--moss-deep);
+  }
+  section.entry p.desc{
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    font-size: 0.95rem;
+  }
+
+  .render{
+    padding: 18px 20px;
+    border: 1px dashed var(--paper-line);
+    border-radius: 3px;
+    margin-bottom: 14px;
+  }
+
+  pre.code{
+    background: var(--code-bg);
+    color: var(--ink);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.82rem;
+    padding: 14px 16px;
+    border-radius: 3px;
+    overflow-x: auto;
+    margin: 0;
+    line-height: 1.55;
+  }
+  pre.code .tagname{ color: var(--rust); }
+  pre.code .attr{ color: var(--moss); }
+  pre.code .comment{ color: var(--ink-soft); font-style: italic; }
+
+  /* --- content inside .render, demonstrating real semantics --- */
+  .render h1, .render h2, .render h3,
+  .render h4, .render h5, .render h6{
+    font-family: "Fraunces", serif;
+    margin: 0 0 6px;
+    color: var(--ink);
+  }
+  .render h1{ font-size: 1.7rem; }
+  .render h2{ font-size: 1.4rem; }
+  .render h3{ font-size: 1.2rem; }
+  .render h4{ font-size: 1.05rem; }
+  .render h5{ font-size: 0.95rem; text-transform: none; }
+  .render h6{ font-size: 0.85rem; color: var(--ink-soft); }
+
+  .render p{ margin: 0 0 10px; }
+  .render a{ color: var(--link); text-decoration-thickness: 1px; }
+  .render hr{
+    border: none;
+    border-top: 1px solid var(--paper-line);
+    margin: 14px 0;
+  }
+  .render ol, .render ul{ margin: 0; padding-left: 22px; }
+  .render li{ margin-bottom: 4px; }
+  .render img{ max-width: 100%; height: auto; border-radius: 3px; }
+
+  footer{
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 480px){
+    section.entry{ padding: 20px 18px; }
+    .wrap{ padding: 40px 16px 80px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- This is an HTML comment. It never renders on the page, but you can
+     see it if you view this file's source — which is exactly what the
+     <!--...--> section below demonstrates. -->
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="kicker">field notebook · garden birds of autumn</div>
+    <h1 class="title">A Garden Notebook</h1>
+    <p class="sub">A working reference for core HTML tags, each shown against a page from a birdwatcher's autumn notebook — live on the left, markup on the right.</p>
+  </header>
+
+  <!-- Heading tags h1–h6 -->
+  <section class="entry">
+    <span class="tag-badge">&lt;h1&gt;–&lt;h6&gt;</span>
+    <h2 class="label">Headings</h2>
+    <p class="desc">Six levels of heading, used here as a journal entry's own hierarchy — title, date, species, then finer notes.</p>
+    <div class="render">
+      <h1>Garden Log — Week 12</h1>
+      <h2>October 3rd, overcast, 9°C</h2>
+      <h3>Eurasian Blackbird</h3>
+      <h4>Juvenile, seen near the hedgerow</h4>
+      <h5>Feeding on windfall apples</h5>
+      <h6>Confirmed against the field guide, p. 114</h6>
+    </div>
+    <pre class="code">&lt;<span class="tagname">h1</span>&gt;Garden Log — Week 12&lt;/<span class="tagname">h1</span>&gt;
+&lt;<span class="tagname">h2</span>&gt;October 3rd, overcast, 9°C&lt;/<span class="tagname">h2</span>&gt;
+&lt;<span class="tagname">h3</span>&gt;Eurasian Blackbird&lt;/<span class="tagname">h3</span>&gt;
+&lt;<span class="tagname">h4</span>&gt;Juvenile, seen near the hedgerow&lt;/<span class="tagname">h4</span>&gt;
+&lt;<span class="tagname">h5</span>&gt;Feeding on windfall apples&lt;/<span class="tagname">h5</span>&gt;
+&lt;<span class="tagname">h6</span>&gt;Confirmed against the field guide, p. 114&lt;/<span class="tagname">h6</span>&gt;</pre>
+  </section>
+
+  <!-- Paragraph tag -->
+  <section class="entry">
+    <span class="tag-badge">&lt;p&gt;</span>
+    <h2 class="label">Paragraph</h2>
+    <p class="desc">Groups a block of related text — the main unit of writing in a page.</p>
+    <div class="render">
+      <p>Arrived at the garden just after eight. The blackbirds were already busy in the apple windfall, and a pair of long-tailed tits passed through the birch without stopping.</p>
+    </div>
+    <pre class="code">&lt;<span class="tagname">p</span>&gt;Arrived at the garden just after eight. The blackbirds
+were already busy in the apple windfall, and a pair of
+long-tailed tits passed through the birch without stopping.&lt;/<span class="tagname">p</span>&gt;</pre>
+  </section>
+
+  <!-- Line break -->
+  <section class="entry">
+    <span class="tag-badge">&lt;br /&gt;</span>
+    <h2 class="label">Line Break</h2>
+    <p class="desc">Forces a line to end without starting a new paragraph — useful for short, address-like lines.</p>
+    <div class="render">
+      <p>
+        Site: Willow Garden, plot 4<br />
+        Weather: overcast, light wind<br />
+        Observer: R. Kalyan
+      </p>
+    </div>
+    <pre class="code">&lt;<span class="tagname">p</span>&gt;
+  Site: Willow Garden, plot 4&lt;<span class="tagname">br</span> /&gt;
+  Weather: overcast, light wind&lt;<span class="tagname">br</span> /&gt;
+  Observer: R. Kalyan
+&lt;/<span class="tagname">p</span>&gt;</pre>
+  </section>
+
+  <!-- Horizontal rule -->
+  <section class="entry">
+    <span class="tag-badge">&lt;hr /&gt;</span>
+    <h2 class="label">Horizontal Rule</h2>
+    <p class="desc">Draws a thematic break between two sections — here, separating morning notes from afternoon notes.</p>
+    <div class="render">
+      <p>Morning: quiet, only the resident robin singing.</p>
+      <hr />
+      <p>Afternoon: a small flock of starlings passed over, heading south.</p>
+    </div>
+    <pre class="code">&lt;<span class="tagname">p</span>&gt;Morning: quiet, only the resident robin singing.&lt;/<span class="tagname">p</span>&gt;
+&lt;<span class="tagname">hr</span> /&gt;
+&lt;<span class="tagname">p</span>&gt;Afternoon: a small flock of starlings passed over, heading south.&lt;/<span class="tagname">p</span>&gt;</pre>
+  </section>
+
+  <!-- Comment -->
+  <section class="entry">
+    <span class="tag-badge">&lt;!-- ... --&gt;</span>
+    <h2 class="label">Comment</h2>
+    <p class="desc">Notes left in the markup for whoever reads the source later. The browser skips them entirely — nothing below is visible on the page, only in the code.</p>
+    <div class="render">
+      <p>Nothing to see here — the comment beside this text is invisible on the page.</p>
+    </div>
+    <pre class="code"><span class="comment">&lt;!-- TODO: double-check this blackbird sighting against
+     last week's entry before filing --&gt;</span>
+&lt;<span class="tagname">p</span>&gt;Nothing to see here — the comment beside this text
+is invisible on the page.&lt;/<span class="tagname">p</span>&gt;</pre>
+  </section>
+
+  <!-- Ordered list -->
+  <section class="entry">
+    <span class="tag-badge">&lt;ol&gt;</span>
+    <h2 class="label">Ordered List</h2>
+    <p class="desc">A numbered sequence — right when the order itself carries meaning, like steps in a process.</p>
+    <div class="render">
+      <ol>
+        <li>Stand still and let the garden settle for a minute.</li>
+        <li>Note the light, temperature, and wind.</li>
+        <li>Record each species as it's confirmed, not guessed.</li>
+        <li>Sketch anything unfamiliar before it moves on.</li>
+      </ol>
+    </div>
+    <pre class="code">&lt;<span class="tagname">ol</span>&gt;
+  &lt;<span class="tagname">li</span>&gt;Stand still and let the garden settle for a minute.&lt;/<span class="tagname">li</span>&gt;
+  &lt;<span class="tagname">li</span>&gt;Note the light, temperature, and wind.&lt;/<span class="tagname">li</span>&gt;
+  &lt;<span class="tagname">li</span>&gt;Record each species as it's confirmed, not guessed.&lt;/<span class="tagname">li</span>&gt;
+  &lt;<span class="tagname">li</span>&gt;Sketch anything unfamiliar before it moves on.&lt;/<span class="tagname">li</span>&gt;
+&lt;/<span class="tagname">ol</span>&gt;</pre>
+  </section>
+
+  <!-- Unordered list -->
+  <section class="entry">
+    <span class="tag-badge">&lt;ul&gt;</span>
+    <h2 class="label">Unordered List</h2>
+    <p class="desc">A list where the order doesn't matter — a set of items rather than a sequence.</p>
+    <div class="render">
+      <ul>
+        <li>Field notebook and pencil</li>
+        <li>Binoculars, 8×42</li>
+        <li>Pocket field guide</li>
+        <li>Flask of tea</li>
+      </ul>
+    </div>
+    <pre class="code">&lt;<span class="tagname">ul</span>&gt;
+  &lt;<span class="tagname">li</span>&gt;Field notebook and pencil&lt;/<span class="tagname">li</span>&gt;
+  &lt;<span class="tagname">li</span>&gt;Binoculars, 8×42&lt;/<span class="tagname">li</span>&gt;
+  &lt;<span class="tagname">li</span>&gt;Pocket field guide&lt;/<span class="tagname">li</span>&gt;
+  &lt;<span class="tagname">li</span>&gt;Flask of tea&lt;/<span class="tagname">li</span>&gt;
+&lt;/<span class="tagname">ul</span>&gt;</pre>
+  </section>
+
+  <!-- Image -->
+  <section class="entry">
+    <span class="tag-badge">&lt;img /&gt;</span>
+    <h2 class="label">Image</h2>
+    <p class="desc">Embeds a picture in the page. This one's a quick sketch of the blackbird from today's entry, saved directly in the markup.</p>
+    <div class="render">
+      <img
+        src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 160'%3E%3Crect width='240' height='160' fill='%23EEEAD9'/%3E%3Cellipse cx='120' cy='95' rx='55' ry='34' fill='%232B2A25'/%3E%3Ccircle cx='168' cy='72' r='20' fill='%232B2A25'/%3E%3Cpath d='M186 68 L204 74 L186 80 Z' fill='%23A85C32'/%3E%3Ccircle cx='174' cy='66' r='2.4' fill='%23F6F4EC'/%3E%3Cpath d='M62 100 Q30 85 20 100 Q30 108 62 108 Z' fill='%232B2A25'/%3E%3Cline x1='108' y1='128' x2='104' y2='144' stroke='%232B2A25' stroke-width='3'/%3E%3Cline x1='132' y1='128' x2='138' y2='144' stroke='%232B2A25' stroke-width='3'/%3E%3C/svg%3E"
+        alt="Simple sketch of a blackbird in profile, dark body with an orange beak"
+        width="240" height="160"
+      />
+    </div>
+    <pre class="code">&lt;<span class="tagname">img</span>
+  <span class="attr">src</span>="blackbird-sketch.svg"
+  <span class="attr">alt</span>="Simple sketch of a blackbird in profile,
+       dark body with an orange beak"
+  <span class="attr">width</span>="240" <span class="attr">height</span>="160"
+/&gt;</pre>
+  </section>
+
+  <!-- Anchor -->
+  <section class="entry">
+    <span class="tag-badge">&lt;a&gt;</span>
+    <h2 class="label">Anchor / Link</h2>
+    <p class="desc">Links to another page — here, out to a reference used to confirm today's sighting.</p>
+    <div class="render">
+      <p>Cross-checked the plumage against <a href="https://www.allaboutbirds.org" target="_blank" rel="noopener">All About Birds</a> before logging it as confirmed.</p>
+    </div>
+    <pre class="code">&lt;<span class="tagname">p</span>&gt;Cross-checked the plumage against
+  &lt;<span class="tagname">a</span> <span class="attr">href</span>="https://www.allaboutbirds.org"&gt;All About Birds&lt;/<span class="tagname">a</span>&gt;
+  before logging it as confirmed.
+&lt;/<span class="tagname">p</span>&gt;</pre>
+  </section>
+
+  <footer>Ten tags, one notebook — view page source for the full markup.</footer>
+
+</div>
+</body>
+</html>

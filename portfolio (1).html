@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahaj Pathak — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #090c14;
+    --bg-alt: #0d1220;
+    --cyan: #2be9dd;
+    --magenta: #ff3fa4;
+    --amber: #ffcb47;
+    --text: #e7ecf7;
+    --muted: #7f8aa3;
+    --line: rgba(231,236,247,0.09);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .logo{
+    font-family: 'Chakra Petch', sans-serif;
+  }
+
+  a{ color: inherit; text-decoration:none; }
+
+  ::selection{ background: var(--magenta); color: var(--bg); }
+
+  :focus-visible{
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(9,12,20,0.75);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height: 68px;
+  }
+  .logo{
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+  .logo span{ color: var(--cyan); }
+  .nav-links{
+    display:flex;
+    gap: 28px;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  .nav-links a{ transition: color 0.2s ease; }
+  .nav-links a:hover{ color: var(--cyan); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 100px 0 0;
+    overflow: hidden;
+  }
+  .hero .wrap{ position: relative; z-index: 2; }
+  .kicker{
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+  .kicker strong{ color: var(--amber); font-weight: 500; }
+  .hero h1{
+    font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    max-width: 15ch;
+    color: var(--text);
+    text-shadow: 0 0 26px rgba(43, 233, 221, 0.28);
+  }
+  .hero p{
+    margin-top: 24px;
+    max-width: 52ch;
+    color: var(--muted);
+    font-size: 1.05rem;
+  }
+  .hero-actions{
+    margin-top: 40px;
+    display:flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    padding: 13px 26px;
+    border-radius: 3px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+    display: inline-block;
+  }
+  .btn:hover{
+    background: var(--cyan);
+    color: var(--bg);
+    box-shadow: 0 0 24px rgba(43, 233, 221, 0.45);
+  }
+  .btn.ghost{
+    border-color: var(--line);
+    color: var(--text);
+  }
+  .btn.ghost:hover{
+    border-color: var(--magenta);
+    color: var(--magenta);
+    background: transparent;
+    box-shadow: 0 0 20px rgba(255, 63, 164, 0.25);
+  }
+
+  /* skyline */
+  .skyline{
+    display:block;
+    width: 100%;
+    height: auto;
+    margin-top: 70px;
+  }
+  .skyline .window{
+    animation: twinkle 5s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .skyline .window{ animation: none; opacity: 0.8; }
+    html{ scroll-behavior: auto; }
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding: 90px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type{ border-bottom: none; }
+
+  .section-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 44px;
+    gap: 24px;
+  }
+  .section-head h2{
+    font-size: 1.7rem;
+    font-weight: 600;
+  }
+  .section-head .count{
+    color: var(--muted);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  /* about */
+  .about-grid{
+    display:grid;
+    grid-template-columns: 200px 1.1fr 0.9fr;
+    gap: 44px;
+    align-items: start;
+  }
+  .portrait{
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 0 30px rgba(43, 233, 221, 0.15);
+  }
+  .portrait img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(35%) contrast(1.05) brightness(0.95);
+    display: block;
+  }
+  .about-grid p{ color: var(--muted); max-width: 58ch; }
+  .about-grid p + p{ margin-top: 16px; }
+  .skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px;
+    align-content: flex-start;
+  }
+  .skill{
+    font-size: 0.85rem;
+    padding: 7px 14px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    color: var(--muted);
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .skill:hover{
+    border-color: var(--amber);
+    color: var(--amber);
+  }
+
+  /* work */
+  .project{
+    padding: 30px 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1.6fr auto;
+    gap: 24px;
+    align-items: start;
+    transition: padding-left 0.25s ease;
+  }
+  .project:last-child{ border-bottom: 1px solid var(--line); }
+  .project:hover{ padding-left: 12px; }
+  .project-year{ color: var(--muted); font-size: 0.9rem; padding-top: 4px; }
+  .project-title{ font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
+  .project-desc{ color: var(--muted); font-size: 0.95rem; max-width: 48ch; }
+  .project-tech{
+    margin-top: 12px;
+    font-size: 0.82rem;
+    color: var(--cyan);
+    opacity: 0.85;
+  }
+  .project-link{
+    font-size: 0.9rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    white-space: nowrap;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .project-link:hover{ color: var(--magenta); border-color: var(--magenta); }
+
+  /* contact */
+  .contact h2{
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    max-width: 16ch;
+    margin-bottom: 20px;
+  }
+  .contact p{ color: var(--muted); max-width: 46ch; margin-bottom: 32px; }
+  .contact-links{
+    display:flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+  }
+  .contact-links a{ color: var(--text); border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: color 0.2s ease, border-color 0.2s ease; }
+  .contact-links a:hover{ color: var(--cyan); border-color: var(--cyan); }
+
+  footer{
+    padding: 28px 0 50px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    display:flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 720px){
+    .about-grid{ grid-template-columns: 1fr; }
+    .portrait{ max-width: 200px; }
+    .project{ grid-template-columns: 1fr; }
+    .project-link{ justify-self: start; }
+    nav .nav-links{ gap: 16px; font-size: 0.85rem; }
+    footer{ flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">sahaj<span>.</span>pathak</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Software Engineer — based in <strong>Kathmandu</strong>, working with teams everywhere</p>
+    <h1>I build fast, reliable software for the systems people rely on at night.</h1>
+    <p>Five years writing backend services and the interfaces on top of them. I like distributed systems, clean APIs, and shipping things that hold up under real traffic. Off the clock I'm usually queued up in Valorant or CS2, or a few hours deep into a horror game with the lights off.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn">See my work</a>
+      <a href="#contact" class="btn ghost">Get in touch</a>
+    </div>
+  </div>
+
+  <svg class="skyline" viewBox="0 0 920 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <filter id="glow" x="-200%" y="-200%" width="500%" height="500%">
+        <feGaussianBlur stdDeviation="2.2" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+      <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0d1220"/>
+        <stop offset="100%" stop-color="#090c14"/>
+      </linearGradient>
+    </defs>
+
+    <rect x="0" y="0" width="920" height="200" fill="url(#fade)"/>
+
+    <!-- buildings -->
+    <g fill="#0d1220" stroke="rgba(231,236,247,0.05)">
+      <rect x="0" y="90" width="60" height="110"/>
+      <rect x="65" y="60" width="45" height="140"/>
+      <rect x="115" y="110" width="70" height="90"/>
+      <rect x="190" y="40" width="50" height="160"/>
+      <rect x="245" y="80" width="55" height="120"/>
+      <rect x="305" y="20" width="60" height="180"/>
+      <rect x="370" y="100" width="80" height="100"/>
+      <rect x="455" y="55" width="50" height="145"/>
+      <rect x="510" y="90" width="65" height="110"/>
+      <rect x="580" y="30" width="55" height="170"/>
+      <rect x="640" y="115" width="70" height="85"/>
+      <rect x="715" y="70" width="50" height="130"/>
+      <rect x="770" y="95" width="60" height="105"/>
+      <rect x="835" y="50" width="45" height="150"/>
+      <rect x="885" y="105" width="35" height="95"/>
+    </g>
+
+    <!-- windows -->
+    <g filter="url(#glow)">
+      <g fill="#2be9dd">
+        <rect class="window" x="10" y="105" width="4" height="6" style="animation-delay:0.2s"/>
+        <rect class="window" x="22" y="120" width="4" height="6" style="animation-delay:1.4s"/>
+        <rect class="window" x="34" y="140" width="4" height="6" style="animation-delay:0.6s"/>
+        <rect class="window" x="78" y="80" width="4" height="6" style="animation-delay:2s"/>
+        <rect class="window" x="90" y="100" width="4" height="6" style="animation-delay:0.9s"/>
+        <rect class="window" x="130" y="130" width="4" height="6" style="animation-delay:1.7s"/>
+        <rect class="window" x="150" y="150" width="4" height="6" style="animation-delay:0.3s"/>
+        <rect class="window" x="205" y="65" width="4" height="6" style="animation-delay:1.1s"/>
+        <rect class="window" x="220" y="90" width="4" height="6" style="animation-delay:2.4s"/>
+        <rect class="window" x="320" y="45" width="4" height="6" style="animation-delay:0.5s"/>
+        <rect class="window" x="335" y="75" width="4" height="6" style="animation-delay:1.9s"/>
+        <rect class="window" x="390" y="120" width="4" height="6" style="animation-delay:0.8s"/>
+        <rect class="window" x="415" y="140" width="4" height="6" style="animation-delay:2.2s"/>
+        <rect class="window" x="470" y="80" width="4" height="6" style="animation-delay:1.3s"/>
+        <rect class="window" x="595" y="55" width="4" height="6" style="animation-delay:0.4s"/>
+        <rect class="window" x="655" y="140" width="4" height="6" style="animation-delay:1.6s"/>
+        <rect class="window" x="730" y="95" width="4" height="6" style="animation-delay:2.1s"/>
+        <rect class="window" x="785" y="115" width="4" height="6" style="animation-delay:0.7s"/>
+        <rect class="window" x="850" y="70" width="4" height="6" style="animation-delay:1.2s"/>
+      </g>
+      <g fill="#ff3fa4">
+        <rect class="window" x="46" y="130" width="4" height="6" style="animation-delay:1s"/>
+        <rect class="window" x="165" y="120" width="4" height="6" style="animation-delay:2.3s"/>
+        <rect class="window" x="255" y="105" width="4" height="6" style="animation-delay:0.1s"/>
+        <rect class="window" x="350" y="150" width="4" height="6" style="animation-delay:1.8s"/>
+        <rect class="window" x="525" y="115" width="4" height="6" style="animation-delay:0.6s"/>
+        <rect class="window" x="660" y="150" width="4" height="6" style="animation-delay:2.5s"/>
+        <rect class="window" x="800" y="140" width="4" height="6" style="animation-delay:1.4s"/>
+        <rect class="window" x="895" y="130" width="4" height="6" style="animation-delay:0.9s"/>
+      </g>
+    </g>
+  </svg>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+    </div>
+    <div class="about-grid">
+      <div class="portrait">
+        <img src="sahaj.jpg" alt="Sahaj Pathak">
+      </div>
+      <div>
+        <p>I'm a backend-leaning software engineer who spent the last few years building payment infrastructure and internal tooling for a mid-size fintech. I care about systems that stay boring in production — clear error messages, sane defaults, logs that tell you what actually happened.</p>
+        <p>Outside of work I contribute to a couple of open-source CLI tools. Most evenings you'll find me on Valorant or CS2 with friends, or working through a horror game solo — probably explains the neon-and-shadow palette here.</p>
+      </div>
+      <div class="skills">
+        <span class="skill">TypeScript</span>
+        <span class="skill">Go</span>
+        <span class="skill">PostgreSQL</span>
+        <span class="skill">React</span>
+        <span class="skill">Docker</span>
+        <span class="skill">AWS</span>
+        <span class="skill">Redis</span>
+        <span class="skill">gRPC</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <span class="count">3 projects</span>
+    </div>
+
+    <div class="project">
+      <div class="project-year">2025</div>
+      <div>
+        <div class="project-title">Ledger</div>
+        <div class="project-desc">A reconciliation engine that matches millions of daily transactions against bank statements, cutting manual review time by 80%.</div>
+        <div class="project-tech">Go · PostgreSQL · Kafka</div>
+      </div>
+      <a href="#" class="project-link">View case study</a>
+    </div>
+
+    <div class="project">
+      <div class="project-year">2024</div>
+      <div>
+        <div class="project-title">Nightshift</div>
+        <div class="project-desc">An on-call scheduling tool that replaced three spreadsheets and a Slack bot with one page the team actually trusts.</div>
+        <div class="project-tech">TypeScript · React · Postgres</div>
+      </div>
+      <a href="#" class="project-link">View case study</a>
+    </div>
+
+    <div class="project">
+      <div class="project-year">2023</div>
+      <div>
+        <div class="project-title">wavelet</div>
+        <div class="project-desc">An open-source CLI for visualizing audio signals in the terminal, built on evenings and weekends. 2,000+ stars.</div>
+        <div class="project-tech">Rust · WASM</div>
+      </div>
+      <a href="#" class="project-link">View on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2>Want to work together?</h2>
+    <p>I'm open to backend and full-stack roles, and the occasional interesting freelance project. Fastest way to reach me is email.</p>
+    <div class="contact-links">
+      <a href="mailto:sahaj@example.com">sahaj@example.com</a>
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Resume</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%;">
+    <span>© 2026 Sahaj Pathak</span>
+    <span>Built with too much coffee</span>
+  </div>
+</footer>
+
+</body>
+</html>
